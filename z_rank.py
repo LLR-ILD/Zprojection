@@ -6,7 +6,7 @@ try:
 except ModuleNotFoundError:
     from pathlib import Path
     def zRankPath(filename):
-        path = Path() / "z_rank" / filename
+        path = Path() / "data/z_rank" / filename
         path.parent.mkdir(parents=True, exist_ok=True)
         return path
 
@@ -14,14 +14,6 @@ except ModuleNotFoundError:
          f"zRankPath is {zRankPath}.")
 
 z_cols =  {"mZ", "mRecoil", "abs(cosTZ)", "abs(cosTMiss)"}
-# z_cols = {'mH',
-#  'mHRecoil',
-#  'cosTH',
-#  'nChargedHadrons',
-#  'nNeutralHadrons',
-#  'nGamma',
-#  'nElectrons',
-#  'nMuons'}
 
 def getPreparedZPart(in_df, z_cols):
     """ We change the dataframes. Thus, use copies.
@@ -69,6 +61,8 @@ def createZRanking(sig_df, all_df, steps, print_every=100, save_as=None):
             # <=
             idx_efficiency_at_least = order.searchsorted(
                 min_remaining_signal, side="left")
+            if idx_efficiency_at_least == len(order):
+                idx_efficiency_at_least -= 1
             val = tmp_sig[z_var].loc[order.index[idx_efficiency_at_least]]
             key = f"{z_var} <= "
             new_cut[key] = val
