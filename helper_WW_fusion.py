@@ -1,16 +1,23 @@
+from pathlib import Path
+import sys
+
 import matplotlib.pyplot as plt
 import numpy as np
 
 # Make the nu DataFrame available.
-import sys
-sys.path.append("/home/kunath/iLCSoft/projects/ZH")
+sys.path.append(str(Path(__file__).parent / "ZH"))
 
 from higgsstrahlung.from_root import RootfileHandler
 import higgsstrahlung.cuts as cuts
 
 rf = "2020-10-08-235437"
+rf = Path.home() / "data/ZH/DataFrames" / rf
+assert rf.exists()
+assert rf.is_absolute()
 file_handler = RootfileHandler(tupleName="nuTree", root_folder=rf)
-nus = file_handler._getDataFrame("nnh")
+nus = file_handler._getDataFrame(None)
+nus = nus[nus.process == "nnh"]
+# nus = file_handler._getDataFrame("nnh")
 
 
 default_var_bins = [
@@ -49,7 +56,7 @@ def plot_WW_vs_ZH_1D(var_bins=None):
         axs[0][i].legend(title="expected counts (arbitrary norm)")
         axs[0][i].set_xlabel(var)
 
-        axs[1][i].bar(x, zh_pdf / zh_pdf.sum(), w, label="all nnh", alpha=.8)
+        axs[1][i].bar(x, zh_pdf / zh_pdf.sum(), w, label="ZH nnh", alpha=.8)
         axs[1][i].bar(x, ww_pdf / ww_pdf.sum(), w, label="WW-fusion", alpha=.8)
         axs[1][i].legend(title="pdf")
         axs[1][i].set_xlabel(var)

@@ -14,3 +14,13 @@ The Z refers to that fact that only remnants of the recoiling Z boson from a
 Higgsstrahlung events are supposed to be used.
 
 For more information, have a look at the notebooks.
+
+## Setup
+
+### Submodules
+
+```sh
+git clone --recurse-submodules -j8 git@github.com:LLR-ILD/Zprojection.git
+# Or, if the repository was already cloned without the submodules:
+git submodule update --init --recursive
+```

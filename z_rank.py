@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 
 try:
-    from higgsstrahlung.config import zRankPath
-except ModuleNotFoundError:
+    from ZH.higgsstrahlung.config import zRankPath
+except (ModuleNotFoundError, ImportError):
     from pathlib import Path
     def zRankPath(filename):
         path = Path() / "data/z_rank" / filename

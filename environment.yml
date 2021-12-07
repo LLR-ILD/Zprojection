@@ -1,0 +1,16 @@
+name: myLCBoost
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - boost-histogram>=0.10.2
+  - jupyter
+  - matplotlib
+  - numexpr
+  - numpy
+  - pandas
+  - scikit-learn
+  - scipy
+  - tqdm
+  - uproot
+  - xgboost=1.2.0

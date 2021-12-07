@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
-from z_rank import z_cols, createZRanking, getZRank
+from z_rank import createZRanking, getZRank
 
 
 def getData(x_range, y_range):
@@ -28,6 +28,17 @@ def getData(x_range, y_range):
     ranking_table = createZRanking(e2_signal, e2_sample, y_range[:-1],
                         print_every=int(len(y_range)/10), save_as="e2_eLpR")
     e2_sample["zRank"] = getZRank(e2_sample, ranking_table)
+
+    # for ev in [nu_sample, e1_sample, e2_sample]:
+    #     left_weight = ev["weight"].copy()
+    #     for pol, rescaler in [
+    #         ("eRpL", (.1*.35) / (.9*.65)),
+    #         ("eLpR", (.9*.65) / (.1*.35)),
+    #         ("eLpL", (.9*.35) / (.1*.65)),
+    #         ("eRpR", (.1*.65) / (.9*.35)),
+    #     ]:
+    #         left_weight[ev.pol == pol] *= rescaler
+    #     ev["weight"] = left_weight
 
     nu_signal = nu_sample[nu_sample.process == "nnh"]
     e1_signal = e1_sample[e1_sample.process == "e1e1h"]

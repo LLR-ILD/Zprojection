@@ -1,0 +1,6 @@
+[submodule "ZH"]
+	path = ZH
+	url = git@github.com:LLR-ILD/ZH.git
+[submodule "Ztau-identification"]
+	path = Ztau-identification
+	url = git@github.com:LLR-ILD/Ztau-identification.git
